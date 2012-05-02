@@ -1,0 +1,26 @@
+{
+    "author": "ql.io",
+    "contributors": [{
+        "name": "Subbu Allamaraju",
+        "email": "subbU@ebaysf.com"
+    }],
+    "name": "charlie",
+    "description": "Charlie knows",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ql-io/charlie"
+    },
+    "main": "lib/charlie.js",
+    "engines": {
+        "node": "*"
+    },
+    "dependencies": {},
+    "optionalDependencies": {},
+    "devDependencies": {
+        "nodeunit": ""
+    },
+    "scripts": {
+        "test": "nodeunit test"
+    }
+}
