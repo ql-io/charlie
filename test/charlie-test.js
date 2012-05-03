@@ -18,52 +18,74 @@
 
 var charlie = require('../lib/charlie.js');
 
+var source = ['source'];
 module.exports = {
     'happy': function(test) {
-        var decision = charlie.ask(['source1'], 100, 10000);
+        var decision = charlie.ask(source, 100, 10000);
         var count = 0;
         var interval = setInterval(function() {
-            charlie.ok(['source1']);
-            decision = charlie.ask(['source1'], 100, 10000);
+            charlie.ok(source);
+            decision = charlie.ask(source, 100, 10000);
             test.equals(decision.state, 'go');
             count++;
             if(count > 5) {
                 clearInterval(interval);
+                charlie.clear(source);
                 test.done();
             }
         }, 100);
     },
 
     'one fail, try before delay': function(test) {
-        var decision = charlie.ask(['source2'], 100, 10000);
-        charlie.notok(['source2']);
+        var decision = charlie.ask(source, 100, 10000);
+        charlie.notok(source);
         setTimeout(function() {
-            decision = charlie.ask(['source2'], 100, 10000);
-            test.equals(decision.state, 'nogo');
+            decision = charlie.ask(source, 100, 10000);
+            test.equals(decision.state, 'go');
+            charlie.clear(source);
             test.done();
         }, 100)
     },
 
-    'fail few, try after delay': function(test) {
-        var decision = charlie.ask(['source3'], 200, 10000);
-        charlie.notok(['source3']);
-        charlie.notok(['source3']);
-        charlie.notok(['source3']);
-        decision = charlie.ask(['source3'], 200, 10000);
+    'four fails, try before delay': function(test) {
+        var decision = charlie.ask(source, 200, 10000);
+        charlie.notok(source);
+        decision = charlie.ask(source, 200, 10000);
+        charlie.notok(source);
+        decision = charlie.ask(source, 200, 10000);
+        charlie.notok(source);
+        decision = charlie.ask(source, 200, 10000);
+        charlie.notok(source);
         setTimeout(function() {
-            decision = charlie.ask(['source3'], 200, 10000);
+            decision = charlie.ask(source, 200, 10000);
+            test.equals(decision.state, 'nogo');
+            charlie.clear(source);
+            test.done();
+        }, 10)
+    },
+
+    'fail few, try after delay': function(test) {
+        var decision = charlie.ask(source, 200, 10000);
+        charlie.notok(source);
+        charlie.notok(source);
+        charlie.notok(source);
+        decision = charlie.ask(source, 200, 10000);
+        setTimeout(function() {
+            decision = charlie.ask(source, 200, 10000);
             test.equals(decision.state, 'go');
+            charlie.clear(source);
             test.done();
         }, 800)
     },
 
     'fail, try after delay': function(test) {
-        var decision = charlie.ask(['source4'], 200, 10000);
-        charlie.notok(['source4']);
-        decision = charlie.ask(['source4'], 200, 10000);
+        var decision = charlie.ask(source, 200, 10000);
+        charlie.notok(source);
+        decision = charlie.ask(source, 200, 10000);
         setTimeout(function() {
-            decision = charlie.ask(['source4'], 200, 10000);
+            decision = charlie.ask(source, 200, 10000);
             test.equals(decision.state, 'go');
+            charlie.clear(source);
             test.done();
         }, decision.delay + 1)
     }
