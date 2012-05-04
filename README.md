@@ -28,8 +28,9 @@ This function returns a decision with three fields:
 * `count`: number of failures so far. The count is reset after a success.
 * `delay`: currently applied backoff delay
 
-    // arr is an array of strings used as a key
-    // timeout and maxDelay are in msec
+Here is an example.
+
+    // Arr is an array of keys used to identify the network resource.
     var decision = charlie.ask(arr, timeout, maxDelay);
     if(decision.state === 'go') {
         // make the request
