@@ -2,7 +2,7 @@ Charlie is a node module keeps of success and failures of network requests and a
 between attempts using the backoff algorithm described in [Exponential Backoff in Distributed
 Systems](http://dthain.blogspot.com/2009/02/exponential-backoff-in-distributed.html).
 
-This module applies skips upto three failures before starting the backoff.
+This module skips upto three failures before starting the backoff.
 
 ![Travis status](https://secure.travis-ci.org/ql-io/charlie.png)
 
