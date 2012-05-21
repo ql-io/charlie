@@ -18,7 +18,7 @@ Before making a request to an origin, let charlie know. This functiont akes thre
 
 * `keys`: An array of keys used to identify the network resource. For HTTP requests, the keys could
   be the URI of the resource, or the IP address, or the host name etc.
-* `initTimeout`: Initial timeout. As suggested in the blog post above, choose a value under which
+* `minDelay`: Minimum backoff delay. As suggested in the blog post above, choose a value under which
   99% of requests complete.
 * `maxDelay`: Maximum backoff delay. Choose an acceptable value based on availability requirements.
 
@@ -31,7 +31,7 @@ This function returns a decision with three fields:
 Here is an example.
 
     // Arr is an array of keys used to identify the network resource.
-    var decision = charlie.ask(arr, timeout, maxDelay);
+    var decision = charlie.ask(arr, minDelay, maxDelay);
     if(decision.state === 'go') {
         // make the request
     }
